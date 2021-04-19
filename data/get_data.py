@@ -1,18 +1,17 @@
 import mysql.connector
-import requests as req
 import json
 
 ##### create MySQL table : attractions #####
-attractionsDB = mysql.connector.connect(
+sitedb = mysql.connector.connect(
   host="localhost",
   user="root",
   password="Sontforg123",
   database="taipeiDayTrip"
 )
 
-sqlcursor = attractionsDB.cursor()
+cursor = sitedb.cursor()
 
-sqlcursor.execute('''CREATE TABLE attractions (
+cursor.execute('''CREATE TABLE attractions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
     category VARCHAR(255),
@@ -53,8 +52,7 @@ for scene in scene_list:
     
     sql = "INSERT INTO attractions (name,category,description,address,transport,mrt,latitude,longitude,images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
     val = (name, category, description, address, transport, mrt,latitude, longitude, images)
-    sqlcursor.execute(sql, val)
-    
-    attractionsDB.commit()
+    cursor.execute(sql, val)
+    sitedb.commit()
        
 
