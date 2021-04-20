@@ -1,4 +1,4 @@
-from typing import Dict
+#from typing import Dict
 from flask import *
 import mysql.connector
 import json
@@ -28,35 +28,35 @@ cursor = sitedb.cursor()
 # myresult = cursor.fetchone()
 # print(myresult)
 
-cursor.execute('SELECT * FROM attractions')
-results = cursor.fetchall()
-scene_count = cursor.rowcount
-total_page_num = (scene_count // 12)
+# cursor.execute('SELECT * FROM attractions')
+# results = cursor.fetchall()
+# scene_count = cursor.rowcount
+# total_page_num = (scene_count // 12)
 
-scene_list = []
-page = 0
+# scene_list = []
+# page = 0
 
-for result in results:
-    scene = {}
-    scene['id'] = result[0]
-    scene['name'] = result[1]
-    scene['category'] = result[2]
-    scene['description'] = result[3]
-    scene['address'] = result[4]
-    scene['transport'] = result[5]
-    scene['mrt'] = result[6]
-    scene['latitude'] = result[7]
-    scene['longitude'] = result[8]
-    scene['images'] = result[9]
+# for result in results:
+#     scene = {}
+#     scene['id'] = result[0]
+#     scene['name'] = result[1]
+#     scene['category'] = result[2]
+#     scene['description'] = result[3]
+#     scene['address'] = result[4]
+#     scene['transport'] = result[5]
+#     scene['mrt'] = result[6]
+#     scene['latitude'] = result[7]
+#     scene['longitude'] = result[8]
+#     scene['images'] = result[9]
     
-    scene_list.append(scene)
-    start = page * 12
-    end = (page + 1) * 12 
+#     scene_list.append(scene)
+#     start = page * 12
+#     end = (page + 1) * 12 
 
-response = {
-		"nextPage": page,
-		"data": scene_list[start:end]
-}
+# response = {
+# 		"nextPage": page,
+# 		"data": scene_list[start:end]
+# }
 
 # print(response)
 ############################
@@ -81,7 +81,7 @@ def thankyou():
 ############# api #############
 ###############################
 
-##### attraction #####
+##### get attractions with 2 query : page and keyword #####
 @app.route("/api/attractions")
 def get_attractions():
     try:
@@ -136,14 +136,42 @@ def get_attractions():
 				"nextPage": page,
 				"data": scene_list[start:end]
 			}
-            return make_response(jsonify(response),200)
+        return make_response(jsonify(response),200)
     except:
         return make_response(jsonify({
 			"error": True,
-  			"message": "自訂的錯誤訊息"
-		}))
+  			"message": "伺服器發生錯誤"
+		}),500)
              
 
+##### get single attraction by id #####
+@app.route('/api/attraction/<attractionId>')
+def get_attraction(attractionId):
+    try:
+        id_query = f'SELECT * FROM attractions WHERE id={attractionId}'
+        cursor.execute(id_query)
+        result = cursor.fetchone()
+        if not result:
+            return make_response(jsonify({"error":True,"message":"景點編號不正確"}),400)
+        
+        scene = {}
+        scene['id'] = result[0]
+        scene['name'] = result[1]
+        scene['category'] = result[2]
+        scene['description'] = result[3]
+        scene['address'] = result[4]
+        scene['transport'] = result[5]
+        scene['mrt'] = result[6]
+        scene['latitude'] = result[7]
+        scene['longitude'] = result[8]
+        scene['images'] = result[9]
+        response = {
+            "data": scene
+        }
+        return make_response(jsonify(response), 200)
+    
+    except:
+        return make_response(jsonify({"error":True,"message": "伺服器內部出現錯誤"}),500)
 app.run(port=3000,debug=True)
 
 
