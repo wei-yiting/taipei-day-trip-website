@@ -56,6 +56,7 @@ def get_attractions():
             cursor.execute('SELECT * FROM attractions')
             results = cursor.fetchall()
             scene_list = []
+            
             for result in results:
                 scene = {}
                 scene['id'] = result[0]
@@ -65,9 +66,10 @@ def get_attractions():
                 scene['address'] = result[4]
                 scene['transport'] = result[5]
                 scene['mrt'] = result[6]
-                scene['latitude'] = result[7]
-                scene['longitude'] = result[8]
-                scene['images'] = result[9]
+                scene['latitude'] = float(result[7])
+                scene['longitude'] = float(result[8])
+                scene['images'] = result[9].split(',')[:-1]
+                
                 scene_list.append(scene)
             
             start = page * 12
@@ -76,6 +78,7 @@ def get_attractions():
 				"nextPage": page,
 				"data": scene_list[start:end]
 			}
+            
         else:
             keyword_query = f'SELECT * FROM attractions WHERE name LIKE "%{keyword}" OR category LIKE "%{keyword}%" OR description LIKE "%{keyword}%" OR address LIKE "%{keyword}%" OR mrt LIKE "%{keyword}%"'
             cursor.execute(keyword_query)
@@ -90,10 +93,13 @@ def get_attractions():
                 scene['address'] = result[4]
                 scene['transport'] = result[5]
                 scene['mrt'] = result[6]
-                scene['latitude'] = result[7]
-                scene['longitude'] = result[8]
-                scene['images'] = result[9]
+                scene['latitude'] = float(result[7])
+                scene['longitude'] = float(result[8])
+                scene['images'] = result[9].split(',')[:-1]
+                
                 scene_list.append(scene)
+
+            
             start = page * 12
             end = (page + 1) * 12 
             response = {
@@ -126,9 +132,10 @@ def get_attraction(attractionId):
         scene['address'] = result[4]
         scene['transport'] = result[5]
         scene['mrt'] = result[6]
-        scene['latitude'] = result[7]
-        scene['longitude'] = result[8]
-        scene['images'] = result[9]
+        scene['latitude'] = float(result[7])
+        scene['longitude'] = float(result[8])
+        scene['images'] = result[9].split(',')[:-1]
+        
         response = {
             "data": scene
         }

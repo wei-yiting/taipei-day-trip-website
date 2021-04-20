@@ -43,13 +43,12 @@ for scene in scene_list:
     longitude = scene['longitude']
     files = scene['file'].split('http')
     
-    images_array = []
+    images_string = ''
     for file in files:
         file_type = file[-3:]
         if file_type.lower() == 'jpg' or file_type.lower() == 'png':
-            images_array.append(f'http{file}')
-    images = str(images_array)
-    
+            images_string += f'http{file},'
+    images = images_string
     sql = "INSERT INTO attractions (name,category,description,address,transport,mrt,latitude,longitude,images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
     val = (name, category, description, address, transport, mrt,latitude, longitude, images)
     cursor.execute(sql, val)
