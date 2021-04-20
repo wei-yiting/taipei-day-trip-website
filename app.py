@@ -23,42 +23,6 @@ sitedb = mysql.connector.connect(
 
 cursor = sitedb.cursor()
 
-# sql = "SELECT * FROM attractions WHERE name='地天宮'"
-# cursor.execute(sql)
-# myresult = cursor.fetchone()
-# print(myresult)
-
-# cursor.execute('SELECT * FROM attractions')
-# results = cursor.fetchall()
-# scene_count = cursor.rowcount
-# total_page_num = (scene_count // 12)
-
-# scene_list = []
-# page = 0
-
-# for result in results:
-#     scene = {}
-#     scene['id'] = result[0]
-#     scene['name'] = result[1]
-#     scene['category'] = result[2]
-#     scene['description'] = result[3]
-#     scene['address'] = result[4]
-#     scene['transport'] = result[5]
-#     scene['mrt'] = result[6]
-#     scene['latitude'] = result[7]
-#     scene['longitude'] = result[8]
-#     scene['images'] = result[9]
-    
-#     scene_list.append(scene)
-#     start = page * 12
-#     end = (page + 1) * 12 
-
-# response = {
-# 		"nextPage": page,
-# 		"data": scene_list[start:end]
-# }
-
-# print(response)
 ############################
 ####### Pages view  ########
 ############################
