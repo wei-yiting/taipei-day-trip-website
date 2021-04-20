@@ -1,12 +1,13 @@
+from config import DbCfg
 import mysql.connector
 import json
 
 ##### create MySQL table : attractions #####
 sitedb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="Sontforg123",
-  database="taipeiDayTrip"
+  host = DbCfg.host,
+  user = DbCfg.usr,
+  password = DbCfg.pwd,
+  database = DbCfg.db
 )
 
 cursor = sitedb.cursor()
