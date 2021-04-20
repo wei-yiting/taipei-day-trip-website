@@ -1,7 +1,6 @@
-#from typing import Dict
+from config import DbCfg
 from flask import *
 import mysql.connector
-import json
 
 ############################
 ######### set up  ##########
@@ -15,10 +14,10 @@ app.config['JSON_SORT_KEYS'] = False
 
 # connect to MySQL databases
 sitedb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="Sontforg123",
-  database="taipeiDayTrip"
+  host = DbCfg.host,
+  user = DbCfg.usr,
+  password = DbCfg.pwd,
+  database = DbCfg.db
 )
 
 cursor = sitedb.cursor()
