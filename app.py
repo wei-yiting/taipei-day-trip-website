@@ -55,6 +55,13 @@ def get_attractions():
         if not keyword:
             cursor.execute('SELECT * FROM attractions')
             results = cursor.fetchall()
+            
+            page_count = cursor.rowcount // 12
+            if page < page_count:
+                next_page = page + 1
+            else:
+                next_page = None
+            
             scene_list = []
             
             for result in results:
@@ -75,7 +82,7 @@ def get_attractions():
             start = page * 12
             end = (page + 1) * 12 
             response = {
-				"nextPage": page,
+				"nextPage": next_page,
 				"data": scene_list[start:end]
 			}
             
@@ -83,6 +90,13 @@ def get_attractions():
             keyword_query = f'SELECT * FROM attractions WHERE name LIKE "%{keyword}" OR category LIKE "%{keyword}%" OR description LIKE "%{keyword}%" OR address LIKE "%{keyword}%" OR mrt LIKE "%{keyword}%"'
             cursor.execute(keyword_query)
             results = cursor.fetchall()
+            
+            page_count = cursor.rowcount // 12
+            if page < page_count:
+                next_page = page + 1
+            else:
+                next_page = None
+            
             scene_list = []
             for result in results:
                 scene = {}
@@ -103,7 +117,7 @@ def get_attractions():
             start = page * 12
             end = (page + 1) * 12 
             response = {
-				"nextPage": page,
+				"nextPage": next_page,
 				"data": scene_list[start:end]
 			}
         return make_response(jsonify(response),200)
