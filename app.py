@@ -1,6 +1,7 @@
 from config import DbCfg
 from flask import *
 import mysql.connector
+from mysql.connector import pooling
 
 ############################
 ######### set up  ##########
@@ -13,12 +14,16 @@ app.config['JSON_SORT_KEYS'] = False
 
 
 # connect to MySQL databases
-sitedb = mysql.connector.connect(
-  host = DbCfg.host,
-  user = DbCfg.usr,
-  password = DbCfg.pwd,
-  database = DbCfg.db
-)
+connectionpool = mysql.connector.pooling.MySQLConnectionPool(
+        pool_name = 'MySQLPool',
+        pool_size = 3,
+        host = DbCfg.host,
+        user = DbCfg.usr,
+        password = DbCfg.pwd,
+        database = DbCfg.db
+ )
+
+sitedb = connectionpool.get_connection()
 
 cursor = sitedb.cursor()
 
@@ -101,7 +106,7 @@ def get_attractions():
         # query without keyword
         else:
             # database query 
-            keyword_query = f'SELECT * FROM attractions WHERE name LIKE "%{keyword}" OR category LIKE "%{keyword}%" OR description LIKE "%{keyword}%" OR address LIKE "%{keyword}%" OR mrt LIKE "%{keyword}%"'
+            keyword_query = f'SELECT * FROM attractions WHERE name LIKE "%{keyword}%" OR category LIKE "%{keyword}%" OR description LIKE "%{keyword}%" OR address LIKE "%{keyword}%" OR mrt LIKE "%{keyword}%"'
             cursor.execute(keyword_query)
             results = cursor.fetchall()
             
