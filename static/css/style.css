@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
 
-/* general setting */
+/********** general setting **********/
 
 body{
     font-family: 'Noto Sans TC', sans-serif;
@@ -15,7 +15,9 @@ body{
     box-sizing: border-box;
 }
 
-/* header */
+
+
+/********** header **********/
 
 .header-wrapper{
     background-color:#fff;
@@ -82,7 +84,8 @@ h1{
     visibility: hidden;
 }
 
-/* footer */
+
+/********** header **********/
 
 footer{
     background-color:#757575;
@@ -99,8 +102,12 @@ footer p{
 
 
 
+/***************************************/
+/************* media query *************/
+/***************************************/
 
-/* small mobile phone */
+
+/* mobile phone */
 @media only screen and (max-width:600px){
     .header-container{
         width: 100%;
@@ -115,6 +122,7 @@ footer p{
     }
 }
 
+/* small mobile photne */
 @media only screen and (max-width:340px){
     
     h1{
