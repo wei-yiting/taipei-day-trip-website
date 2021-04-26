@@ -124,7 +124,7 @@ searchForm.addEventListener('submit',(evt)=>{
 
 
 // infinite scroll
-if(nextPage === 0 || nextPage){
+if(nextPage){
     window.addEventListener('scroll',()=>{
         if((window.innerHeight + window.scrollY) >= (document.body.getBoundingClientRect().bottom - 400) && readyToLoadAgain){
             loadAttractions(keyword);
