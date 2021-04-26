@@ -44,7 +44,6 @@ searchForm.addEventListener('submit',(evt)=>{
 async function loadAttractions(keyword=null){
     if(nextPage !== null){
         nextPage = await getAttractionsData(nextPage,keyword);
-        console.log(nextPage);
         showAttractions();
     }
 }
@@ -81,7 +80,7 @@ function showAttractions(){
             attractionsContainer.appendChild(attractionBox);
         }
     }
-    else if(nextPage !== null){
+    else if(!(attractionsContainer.firstChild)){
         const message = document.createElement('span');
         message.textContent = "未找到符合關鍵字的景點";
         attractionsContainer.appendChild(message);
