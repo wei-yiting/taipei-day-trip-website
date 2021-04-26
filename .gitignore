@@ -1,5 +1,10 @@
+nohup.out
+
 # Config files
 config.py
+
+# macOS
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

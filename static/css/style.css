@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+
+/********** general setting **********/
+
+body{
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 16px;
+    background-color: #fff;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+}
+
+
+/********** header **********/
+
+.header-wrapper{
+    background-color:#fff;
+    position: fixed;
+    width: 100%;
+    height:54px;
+    box-shadow: 0 0 20px #aabbcc86;
+}
+
+.header-container{
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    height:100%;
+}
+
+h1{
+    font-weight: 700;
+    font-size: 30px;
+    color: #448899;
+    margin: 10px 0;
+    line-height:34px;
+    height:34px;
+    vertical-align: middle;
+}
+
+.header-navbar{
+    margin-left: auto;
+    display: flex;
+}
+
+.header-navbar ul li{
+    display: inline;
+    padding: 2.5px;
+    margin: 7.5px;
+    font-size: 16px;
+    list-style: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 0.2s;
+}
+
+.header-navbar ul li:hover{
+    border-bottom: 1px solid #666666;
+
+}
+
+.header-navbar ul li a{
+    text-decoration: none;
+    color: #666666;
+}
+
+.header-navbar ul li a{
+    text-decoration: none;
+    color: #666666;
+}
+
+.occupy-fixed-height{
+    position: relative;
+    padding-top:54px;
+    width:100%;
+    visibility: hidden;
+}
+
+
+/********** header **********/
+
+footer{
+    background-color:#757575;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+
+footer p{
+    margin:45px auto;
+    color: #fff;
+    font-weight: 700;
+}
+
+
+
+/***************************************/
+/************* media query *************/
+/***************************************/
+
+
+/* mobile phone */
+@media only screen and (max-width:600px){
+    .header-container{
+        width: 100%;
+    }
+    
+    h1{
+        margin-left: 10px
+    }
+
+    .header-navbar ul li{
+        font-size: 14px;
+    }
+}
+
+/* small mobile photne */
+@media only screen and (max-width:340px){
+    
+    h1{
+        font-size: 24px;
+    }
+
+    .header-navbar ul li{
+        font-size: 14px;
+    }
+}
+
+
+
+
