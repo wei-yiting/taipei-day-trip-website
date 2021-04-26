@@ -13,7 +13,7 @@ let keyword = null;
 
 // fetch attractions api and get
 async function getAttractionsData(pageNum, keyword=null){
-    if (nextPage !== null && nextPage !== undefined){
+    if (nextPage !== null){
         let apiUrl;
         if(keyword){
             apiUrl = `http://${ipUrl}:3000/api/attractions?page=${pageNum}&keyword=${keyword}`;
@@ -38,7 +38,7 @@ function showAttractions(){
             attractionsContainer.appendChild(attractionBox);
         }
     }
-    else{
+    else if(nextPage !== null){
         const message = document.createElement('span');
         message.textContent = "未找到符合關鍵字的景點";
         attractionsContainer.appendChild(message);
@@ -124,7 +124,7 @@ searchForm.addEventListener('submit',(evt)=>{
 
 
 // infinite scroll
-if(nextPage !== null && nextPage !== undefined){
+if(nextPage === 0 || nextPage){
     window.addEventListener('scroll',()=>{
         if((window.innerHeight + window.scrollY) >= (document.body.getBoundingClientRect().bottom - 400) && readyToLoadAgain){
             loadAttractions(keyword);
