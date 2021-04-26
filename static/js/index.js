@@ -11,24 +11,67 @@ let totalImagesToLoad;
 let keyword = null;
 
 
-// fetch attractions api and get
-async function getAttractionsData(pageNum, keyword=null){
-    if (nextPage !== null){
-        let apiUrl;
-        if(keyword){
-            apiUrl = `http://${ipUrl}:3000/api/attractions?page=${pageNum}&keyword=${keyword}`;
-        }else{
-            apiUrl = `http://${ipUrl}:3000/api/attractions?page=${pageNum}`;
+// =========== initial load and event listener ========
+
+// initial load
+loadAttractions();
+
+
+// infinite scroll : listen of scroll event
+if(nextPage !== null){
+    window.addEventListener('scroll',()=>{
+        if((window.innerHeight + window.scrollY) >= (document.body.getBoundingClientRect().bottom - 400) && readyToLoadAgain){
+            loadAttractions(keyword);
+            readyToLoadAgain = false;
         }
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        nextPage = data.nextPage;
-        attractionsArray = data.data;
-        return nextPage;
+    })
+}
+
+// attraction keyword search : submit search form
+searchForm.addEventListener('submit',(evt)=>{
+    evt.preventDefault();
+    removeAttractions();
+    nextPage = 0;
+    keyword = searchKeyword.value;
+    loadAttractions(keyword);    
+})
+
+
+// ========= function ===========
+
+// load and visualize attractions
+// calling getAttractionsData and showAttractions function
+async function loadAttractions(keyword=null){
+    if(nextPage !== null){
+        nextPage = await getAttractionsData(nextPage,keyword);
+        console.log(nextPage);
+        showAttractions();
     }
 }
 
-// show all attractions in the same page
+// remove attractions gallery (called when a keyword search is submit)
+function removeAttractions(){
+    while(attractionsContainer.firstChild){
+        attractionsContainer.removeChild(attractionsContainer.lastChild);
+    }
+}
+
+// fetch attractions api and get (called in loadAttractions function)
+async function getAttractionsData(pageNum, keyword=null){
+    let apiUrl;
+    if(keyword){
+        apiUrl = `http://${ipUrl}:3000/api/attractions?page=${pageNum}&keyword=${keyword}`;
+    }else{
+        apiUrl = `http://${ipUrl}:3000/api/attractions?page=${pageNum}`;
+    }
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    nextPage = data.nextPage;
+    attractionsArray = data.data;
+    return nextPage;
+}
+
+// show all attractions in the same page (called in loadAttractions function)
 function showAttractions(){
     imagesLoadedNum = 0;
     totalImagesToLoad = attractionsArray.length;
@@ -45,14 +88,8 @@ function showAttractions(){
     }
 }
 
-function imageLoaded(){
-    imagesLoadedNum++;
-    if(imagesLoadedNum === totalImagesToLoad && nextPage !== null){
-        readyToLoadAgain = true;
-    }
-}
 
-// show attractions
+// create single attraction item (called in showAttractions function)
 function createAttractionItem(attraction){
 
     const attractionBox = document.createElement('article');
@@ -99,38 +136,11 @@ function createAttractionItem(attraction){
     return attractionBox;
 }
 
-// load and visualize attractions
-async function loadAttractions(keyword=null){
-    nextPage = await getAttractionsData(nextPage,keyword);
-    showAttractions();
-}
-
-// remove attractions gallery
-function removeAttractions(){
-    while(attractionsContainer.firstChild){
-        attractionsContainer.removeChild(attractionsContainer.lastChild);
+// check if all item in a page is loaded (called in createAttractionItem function )
+function imageLoaded(){
+    imagesLoadedNum++;
+    if(imagesLoadedNum === totalImagesToLoad && nextPage !== null){
+        readyToLoadAgain = true;
     }
 }
 
-// submit search form
-searchForm.addEventListener('submit',(evt)=>{
-    evt.preventDefault();
-    removeAttractions();
-    nextPage = 0;
-    keyword = searchKeyword.value;
-    loadAttractions(keyword);    
-})
-
-
-
-// infinite scroll
-if(nextPage){
-    window.addEventListener('scroll',()=>{
-        if((window.innerHeight + window.scrollY) >= (document.body.getBoundingClientRect().bottom - 400) && readyToLoadAgain){
-            loadAttractions(keyword);
-            readyToLoadAgain = false;
-        }
-    })
-}
-
-loadAttractions();
