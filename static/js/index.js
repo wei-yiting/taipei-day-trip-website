@@ -1,14 +1,13 @@
 const attractionsContainer = document.getElementById('attractionsContainer');
 const searchForm = document.getElementById('searchForm');
 const searchKeyword = document.getElementById('searchKeyword');
-const ipUrl = "127.0.0.1"
 
 let nextPage = 0;
 let attractionsArray = [];
 let readyToLoadAgain = false;
-let imagesLoadedNum = 0;
-let totalImagesToLoad;
 let keyword = null;
+let totalAttractionsNum = 0;
+let createdAttractonBoxesNum = 0;
 
 
 // =========== initial load and event listener ========
@@ -20,7 +19,7 @@ loadAttractions();
 // infinite scroll : listen of scroll event
 if(nextPage !== null){
     window.addEventListener('scroll',()=>{
-        if((window.innerHeight + window.scrollY) >= (document.body.getBoundingClientRect().bottom - 400) && readyToLoadAgain){
+        if((window.innerHeight + window.scrollY) >= (document.body.getBoundingClientRect().bottom) && readyToLoadAgain){
             loadAttractions(keyword);
             readyToLoadAgain = false;
         }
@@ -32,6 +31,7 @@ searchForm.addEventListener('submit',(evt)=>{
     evt.preventDefault();
     attractionsContainer.innerHTML = '';
     nextPage = 0;
+    totalAttractionsNum = 0;
     keyword = searchKeyword.value;
     loadAttractions(keyword);    
 })
@@ -53,9 +53,9 @@ async function loadAttractions(keyword=null){
 async function getAttractionsData(pageNum, keyword=null){
     let apiUrl;
     if(keyword){
-        apiUrl = `http://${ipUrl}:3000/api/attractions?page=${pageNum}&keyword=${keyword}`;
+        apiUrl = `/api/attractions?page=${pageNum}&keyword=${keyword}`;
     }else{
-        apiUrl = `http://${ipUrl}:3000/api/attractions?page=${pageNum}`;
+        apiUrl = `/api/attractions?page=${pageNum}`;
     }
     const response = await fetch(apiUrl);
     const data = await response.json();
@@ -67,18 +67,20 @@ async function getAttractionsData(pageNum, keyword=null){
 // show all attractions in the same page (called in loadAttractions function)
 function showAttractions(){
     imagesLoadedNum = 0;
-    totalImagesToLoad = attractionsArray.length;
-    if(totalImagesToLoad){
+    totalAttractionsNum += attractionsArray.length;
+    if(attractionsArray.length){
         for(let attraction of attractionsArray){
             const attractionBox = createAttractionItem(attraction);
             attractionsContainer.appendChild(attractionBox);
         }
     }
-    else if(!(attractionsContainer.firstChild)){
+    else if(!(totalAttractionsNum)){
         const message = document.createElement('span');
         message.textContent = "未找到符合關鍵字的景點";
         attractionsContainer.appendChild(message);
     }
+    createdAttractonBoxesNum = attractionsContainer.childElementCount;
+    itemCreatedCalc();
 }
 
 
@@ -89,7 +91,7 @@ function createAttractionItem(attraction){
     attractionBox.classList.add('attraction-box');
     
     const linkContainer = document.createElement('a');
-    linkContainer.href = `http://${ipUrl}:3000/attraction/${attraction.id}`
+    linkContainer.href = `/attraction/${attraction.id}`
     linkContainer.setAttribute('target', '_blank');
     
     const attractionImage = document.createElement('img');
@@ -124,16 +126,13 @@ function createAttractionItem(attraction){
     
     attractionBox.appendChild(linkContainer);
 
-    attractionImage.addEventListener('load',imageLoaded);
-
     return attractionBox;
 }
 
-// check if all item in a page is loaded (called in createAttractionItem function )
-function imageLoaded(){
-    imagesLoadedNum++;
-    if(imagesLoadedNum === totalImagesToLoad && nextPage !== null){
+
+// check if all container box in a page is created (called in createAttractionItem function )
+function itemCreatedCalc(){
+    if(createdAttractonBoxesNum === totalAttractionsNum){
         readyToLoadAgain = true;
     }
 }
-
