@@ -30,7 +30,7 @@ if(nextPage !== null){
 // attraction keyword search : submit search form
 searchForm.addEventListener('submit',(evt)=>{
     evt.preventDefault();
-    removeAttractions();
+    attractionsContainer.innerHTML = '';
     nextPage = 0;
     keyword = searchKeyword.value;
     loadAttractions(keyword);    
@@ -48,12 +48,6 @@ async function loadAttractions(keyword=null){
     }
 }
 
-// remove attractions gallery (called when a keyword search is submit)
-function removeAttractions(){
-    while(attractionsContainer.firstChild){
-        attractionsContainer.removeChild(attractionsContainer.lastChild);
-    }
-}
 
 // fetch attractions api and get (called in loadAttractions function)
 async function getAttractionsData(pageNum, keyword=null){
