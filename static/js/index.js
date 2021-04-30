@@ -6,21 +6,18 @@ let nextPage = 0;
 let attractionsArray = [];
 let readyToLoadAgain = false;
 let keyword = null;
-let totalAttractionsNum = 0;
-let createdAttractonBoxesNum = 0;
 
 
 // ========= functions ===========
 
 // load and visualize attractions
-// calling getAttractionsData and showAttractions function
 async function loadAttractions(keyword=null){
     if(nextPage !== null){
         nextPage = await getAttractionsData(nextPage,keyword);
         showAttractions();
+        readyToLoadAgain = true;
     }
 }
-
 
 // fetch attractions api and get (called in loadAttractions function)
 async function getAttractionsData(pageNum, keyword=null){
@@ -39,21 +36,17 @@ async function getAttractionsData(pageNum, keyword=null){
 
 // show all attractions in the same page (called in loadAttractions function)
 function showAttractions(){
-    imagesLoadedNum = 0;
-    totalAttractionsNum += attractionsArray.length;
     if(attractionsArray.length){
         for(let attraction of attractionsArray){
             const attractionBox = createAttractionItem(attraction);
             attractionsContainer.appendChild(attractionBox);
         }
     }
-    else if(!(totalAttractionsNum)){
+    else if(!(attractionsContainer.firstChild)){
         const message = document.createElement('span');
         message.textContent = "未找到符合關鍵字的景點";
         attractionsContainer.appendChild(message);
     }
-    createdAttractonBoxesNum = attractionsContainer.childElementCount;
-    itemCreatedCalc();
 }
 
 
@@ -69,7 +62,7 @@ function createAttractionItem(attraction){
             <div class="attraction-text-container">
                 <p class="attraction-title">${attraction.name}</p>
                 <div class="attraction-info">
-                    <p class="attraction-mrt">${attraction.mrt}</p>
+                    <p class="attraction-mrt">${attraction.mrt ? attraction.mrt : "無鄰近捷運站"}</p>
                     <p class="attraction-category">${attraction.category}</p>
                 </div>
             </div>
@@ -79,20 +72,10 @@ function createAttractionItem(attraction){
     return attractionBox;
 }
 
-
-// check if all container box in a page is created (called in createAttractionItem function )
-function itemCreatedCalc(){
-    if(createdAttractonBoxesNum === totalAttractionsNum){
-        readyToLoadAgain = true;
-    }
-}
-
-
 // =========== initial load and event listener ========
 
 // initial load
 loadAttractions();
-
 
 // infinite scroll : listen of scroll event
 if(nextPage !== null){
@@ -109,7 +92,6 @@ searchForm.addEventListener('submit',(evt)=>{
     evt.preventDefault();
     attractionsContainer.innerHTML = '';
     nextPage = 0;
-    totalAttractionsNum = 0;
     keyword = searchKeyword.value;
     loadAttractions(keyword);    
 })
