@@ -48,6 +48,8 @@ def thankyou():
 
 
 ##### attraction ######
+num_per_page = 12
+
 
 # reusable function for create scene data from database search result
 def create_scene_data(result):
@@ -76,12 +78,19 @@ def get_attractions():
         
         # query without keyword
         if not keyword:
+
             # database query 
-            cursor.execute('SELECT * FROM attractions')
-            results = cursor.fetchall()
+            start_point = page * num_per_page
+            query = f'SELECT * FROM attractions LIMIT {start_point},{num_per_page}'
+            cursor.execute(query)
+            results = cursor.fetchall()            
             
-            # calculate total page and assign nextPage value
-            page_count = cursor.rowcount // 12
+            #calculate total page and assign nextPage value
+            count_query = 'SELECT COUNT(*) FROM attractions'
+            cursor.execute(count_query)
+            result_count = cursor.fetchone()[0]        
+            
+            page_count = result_count // num_per_page
             if page < page_count:
                 next_page = page + 1
             else:
@@ -92,26 +101,34 @@ def get_attractions():
             for result in results:
                 scene = create_scene_data(result)
                 scene_list.append(scene)
-            
-            # parameters to specify start and end point for each data output page 
-            start = page * 12
-            end = (page + 1) * 12 
-            
+                        
             # put processed data into response
             response = {
 				"nextPage": next_page,
-				"data": scene_list[start:end]
+				"data": scene_list
 			}
         
         # query without keyword
         else:
             # database query 
-            keyword_query = f'SELECT * FROM attractions WHERE name LIKE "%{keyword}%" OR category LIKE "%{keyword}%" OR description LIKE "%{keyword}%" OR address LIKE "%{keyword}%" OR mrt LIKE "%{keyword}%"'
+            start_point = page * num_per_page
+            keyword_query_condition = f'''
+            WHERE name LIKE "%{keyword}%" 
+            OR category LIKE "%{keyword}%" 
+            OR description LIKE "%{keyword}%" 
+            OR address LIKE "%{keyword}%" 
+            OR mrt LIKE "%{keyword}%" 
+            '''
+            keyword_query = f'SELECT * FROM attractions {keyword_query_condition}  LIMIT {start_point},{num_per_page}'
             cursor.execute(keyword_query)
             results = cursor.fetchall()
             
             # calculate total page and assign nextPage value
-            page_count = cursor.rowcount // 12
+            count_query = f'SELECT COUNT(*) FROM attractions {keyword_query_condition}'
+            cursor.execute(count_query)
+            result_count = cursor.fetchone()[0]        
+            
+            page_count = result_count // num_per_page
             if page < page_count:
                 next_page = page + 1
             else:
@@ -122,15 +139,11 @@ def get_attractions():
             for result in results:
                 scene = create_scene_data(result)
                 scene_list.append(scene)
-
-            # parameters to specify start and end point for each data output page 
-            start = page * 12
-            end = (page + 1) * 12 
             
             # put processed data into response
             response = {
 				"nextPage": next_page,
-				"data": scene_list[start:end]
+				"data": scene_list
 			}
         
         sitedb.close()
@@ -172,4 +185,4 @@ def get_attraction(attractionId):
         return make_response(jsonify({"error":True,"message": "伺服器內部出現錯誤"}),500)
 
 if __name__ == '__main__':
-    app.run(port=3000,host="0.0.0.0")
+    app.run(port=3000,debug=True,host="0.0.0.0")
