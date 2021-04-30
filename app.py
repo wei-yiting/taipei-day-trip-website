@@ -16,16 +16,13 @@ app.config['JSON_SORT_KEYS'] = False
 # connect to MySQL databases
 connectionpool = mysql.connector.pooling.MySQLConnectionPool(
         pool_name = 'MySQLPool',
-        pool_size = 3,
+        pool_size = 10,
         host = DbCfg.host,
         user = DbCfg.usr,
         password = DbCfg.pwd,
         database = DbCfg.db
  )
 
-sitedb = connectionpool.get_connection()
-
-cursor = sitedb.cursor()
 
 ############################
 ####### Pages view  ########
@@ -71,6 +68,9 @@ def create_scene_data(result):
 @app.route("/api/attractions")
 def get_attractions():
     try:
+        sitedb = connectionpool.get_connection()
+        cursor = sitedb.cursor()
+        
         page = int(request.args.get('page'))
         keyword = request.args.get('keyword')
         
@@ -132,7 +132,8 @@ def get_attractions():
 				"nextPage": next_page,
 				"data": scene_list[start:end]
 			}
-            
+        
+        sitedb.close()
         return make_response(jsonify(response),200)
     
     except:
@@ -146,6 +147,9 @@ def get_attractions():
 @app.route('/api/attraction/<attractionId>')
 def get_attraction(attractionId):
     try:
+        sitedb = connectionpool.get_connection()
+        cursor = sitedb.cursor()
+        
         # query without keyword
         id_query = f'SELECT * FROM attractions WHERE id={attractionId}'
         cursor.execute(id_query)
@@ -161,6 +165,7 @@ def get_attraction(attractionId):
             "data": scene
         }
         
+        sitedb.close()
         return make_response(jsonify(response), 200)
     
     except:
