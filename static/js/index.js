@@ -10,34 +10,7 @@ let totalAttractionsNum = 0;
 let createdAttractonBoxesNum = 0;
 
 
-// =========== initial load and event listener ========
-
-// initial load
-loadAttractions();
-
-
-// infinite scroll : listen of scroll event
-if(nextPage !== null){
-    window.addEventListener('scroll',()=>{
-        if((window.innerHeight + window.scrollY) >= (document.body.getBoundingClientRect().bottom) && readyToLoadAgain){
-            loadAttractions(keyword);
-            readyToLoadAgain = false;
-        }
-    })
-}
-
-// attraction keyword search : submit search form
-searchForm.addEventListener('submit',(evt)=>{
-    evt.preventDefault();
-    attractionsContainer.innerHTML = '';
-    nextPage = 0;
-    totalAttractionsNum = 0;
-    keyword = searchKeyword.value;
-    loadAttractions(keyword);    
-})
-
-
-// ========= function ===========
+// ========= functions ===========
 
 // load and visualize attractions
 // calling getAttractionsData and showAttractions function
@@ -90,41 +63,18 @@ function createAttractionItem(attraction){
     const attractionBox = document.createElement('article');
     attractionBox.classList.add('attraction-box');
     
-    const linkContainer = document.createElement('a');
-    linkContainer.href = `/attraction/${attraction.id}`
-    linkContainer.setAttribute('target', '_blank');
-    
-    const attractionImage = document.createElement('img');
-    attractionImage.src = attraction.images[0]
-    
-    const attractionTextContainer = document.createElement('div');
-    attractionTextContainer.classList.add('attraction-text-container');
-    
-    const attractionTitle = document.createElement('p');
-    attractionTitle.classList.add('attraction-title');
-    attractionTitle.textContent = attraction.name;
-    
-    const attractionInfo = document.createElement('div');
-    attractionInfo.classList.add('attraction-info');
-    
-    const attractionMrt = document.createElement('p');
-    attractionMrt.classList.add('attraction-mrt');
-    attractionMrt.textContent = attraction.mrt;
-    
-    const attractionCategory = document.createElement('p');
-    attractionCategory.classList.add('attraction-category');
-    attractionCategory.textContent = attraction.category;
-
-    attractionInfo.appendChild(attractionMrt);
-    attractionInfo.appendChild(attractionCategory);
-
-    attractionTextContainer.appendChild(attractionTitle);
-    attractionTextContainer.appendChild(attractionInfo);
-
-    linkContainer.appendChild(attractionImage);
-    linkContainer.appendChild(attractionTextContainer);
-    
-    attractionBox.appendChild(linkContainer);
+    attractionBox.innerHTML = `
+        <a href= "/attraction/${attraction.id}" target="_blank">
+            <img src="${attraction.images[0]}" alt="${attraction.name}">
+            <div class="attraction-text-container">
+                <p class="attraction-title">${attraction.name}</p>
+                <div class="attraction-info">
+                    <p class="attraction-mrt">${attraction.mrt}</p>
+                    <p class="attraction-category">${attraction.category}</p>
+                </div>
+            </div>
+        </a>
+    `
 
     return attractionBox;
 }
@@ -136,3 +86,30 @@ function itemCreatedCalc(){
         readyToLoadAgain = true;
     }
 }
+
+
+// =========== initial load and event listener ========
+
+// initial load
+loadAttractions();
+
+
+// infinite scroll : listen of scroll event
+if(nextPage !== null){
+    window.addEventListener('scroll',()=>{
+        if((window.innerHeight + window.scrollY) >= (document.body.getBoundingClientRect().bottom) && readyToLoadAgain){
+            loadAttractions(keyword);
+            readyToLoadAgain = false;
+        }
+    })
+}
+
+// attraction keyword search : submit search form
+searchForm.addEventListener('submit',(evt)=>{
+    evt.preventDefault();
+    attractionsContainer.innerHTML = '';
+    nextPage = 0;
+    totalAttractionsNum = 0;
+    keyword = searchKeyword.value;
+    loadAttractions(keyword);    
+})
