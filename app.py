@@ -149,10 +149,10 @@ def get_attractions():
         sitedb.close()
         return make_response(jsonify(response),200)
     
-    except:
+    except Exception as e:
         return make_response(jsonify({
 			"error": True,
-  			"message": "伺服器發生錯誤"
+  			"message": str(e)
 		}),500)
              
 
@@ -181,8 +181,11 @@ def get_attraction(attractionId):
         sitedb.close()
         return make_response(jsonify(response), 200)
     
-    except:
-        return make_response(jsonify({"error":True,"message": "伺服器內部出現錯誤"}),500)
+    except Exception as e:
+        return make_response(jsonify({
+			"error": True,
+  			"message": str(e)
+		}),500)
 
 if __name__ == '__main__':
     app.run(port=3000,host="0.0.0.0")
