@@ -5,6 +5,9 @@
 body{
     font-family: 'Noto Sans TC', sans-serif;
     font-size: 16px;
+    display:flex;
+    flex-direction: column;
+    min-height: 100vh;
     background-color: #fff;
 }
 
@@ -18,12 +21,14 @@ body{
 
 /********** header **********/
 
+
 .header-wrapper{
     background-color:#fff;
     position: fixed;
     width: 100%;
     height:54px;
     box-shadow: 0 0 20px #aabbcc86;
+    z-index: 2;
 }
 
 .header-container{
@@ -91,10 +96,12 @@ footer{
     display: flex;
     justify-content:center;
     align-items:center;
+    flex-grow:1;
+    min-height: 104px;
 }
 
 footer p{
-    margin:45px auto;
+    margin:45px auto auto;
     color: #fff;
     font-weight: 700;
 }
