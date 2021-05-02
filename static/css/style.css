@@ -2,13 +2,13 @@
 
 /********** general setting **********/
 
-body{
+html,body{
     font-family: 'Noto Sans TC', sans-serif;
-    font-size: 16px;
     display:flex;
     flex-direction: column;
     min-height: 100vh;
     background-color: #fff;
+    color: #666666;
 }
 
 *{
@@ -89,7 +89,7 @@ h1{
 }
 
 
-/********** header **********/
+/********** footer **********/
 
 footer{
     background-color:#757575;
@@ -106,6 +106,65 @@ footer p{
     font-weight: 700;
 }
 
+
+/********** font **********/
+
+.header1-bold{
+    font-weight: 700;
+    font-size:28px;
+}
+
+.header2-bold{
+    font-weight:700;
+    font-size:30px;
+    line-height:34px;   
+}
+
+.header3-bold{
+    font-weight: 700;
+    font-size:24px;
+    line-height:24px;
+}
+
+.header3-reg{
+    font-weight: 400;
+    font-size:24px;
+    line-height:24px;
+}
+
+.button-bold{
+    font-weight: 700;
+    font-size: 19px;
+}
+
+.button-reg{
+    font-weight: 400;
+    font-size:19px;
+}
+
+.content-bold{
+    font-weight: 700;
+    font-size:16px;
+    line-height: 23px;
+}
+
+.content-reg{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23px;
+}
+
+.body-reg{
+    font-weight: 400;
+    font-size: 16px;
+    line-height:16px;
+}
+
+.body-bold{
+    font-weight: 700;
+    font-size: 16px;
+    line-height:16px;
+}
 
 
 /***************************************/
