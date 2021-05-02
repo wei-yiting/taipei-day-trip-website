@@ -81,11 +81,11 @@ h1{
     color: #666666;
 }
 
-.occupy-fixed-height{
-    position: relative;
+/********** main **********/
+
+main{
     padding-top:54px;
-    width:100%;
-    visibility: hidden;
+    flex-grow: 1;
 }
 
 
@@ -96,7 +96,6 @@ footer{
     display: flex;
     justify-content:center;
     align-items:center;
-    flex-grow:1;
     min-height: 104px;
 }
 
@@ -140,6 +139,7 @@ footer p{
 .button-reg{
     font-weight: 400;
     font-size:19px;
+    line-height:19px;
 }
 
 .content-bold{

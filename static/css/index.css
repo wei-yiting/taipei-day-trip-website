@@ -122,7 +122,7 @@
     overflow: hidden;
     height:162px;
     filter:opacity(100%);
-    transition: filter 0.5s;
+    transition: filter 0.8s;
 }
 
 .image-container .loading{
@@ -167,7 +167,7 @@
     bottom:0;
     margin:auto;
     border: 6.75px solid #F8F8F8;
-    border-top: 6.75px solid #AADDEE;
+    border-top: 6.75px solid #d7eaf1;
     width: 67.5px;
     height:67.5px;
     border-radius: 50%;
@@ -201,8 +201,8 @@
     }
 
     .image-container .loader{
-        border: 0.8vw solid #F8F8F8;
-        border-top: 0.8vw solid #AADDEE;
+        border-width: 0.8vw;
+        border-top-width: 0.8vw;
         width:8vw;
         height:8vw;
     }
@@ -225,8 +225,8 @@
     }
 
     .image-container .loader{
-        border: 1.25vw solid #F8F8F8;
-        border-top: 1.25vw solid #AADDEE;
+        border-width: 1.25vw;
+        border-top-width: 1.25vw;
         width:12.5vw;
         height:12.5vw;
     }
@@ -256,8 +256,8 @@
     }
 
     .image-container .loader{
-        border: 2.5vw solid #F8F8F8;
-        border-top: 2.5vw solid #AADDEE;
+        border-width: 2.5vw;
+        border-top-width: 2.5vw;
         width:25vw;
         height:25vw;
     }
