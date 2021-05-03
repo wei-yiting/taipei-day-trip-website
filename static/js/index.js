@@ -60,7 +60,7 @@ function createAttractionItem(attraction){
     
     const attractionMrt = document.createElement('p');
     attractionMrt.classList.add('attraction-mrt');
-    attractionMrt.textContent = attraction.mrt;
+    attractionMrt.textContent = attraction.mrt ? attraction.mrt:"無鄰近捷運站";
     
     const attractionCategory = document.createElement('p');
     attractionCategory.classList.add('attraction-category');

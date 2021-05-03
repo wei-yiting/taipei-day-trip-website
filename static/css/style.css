@@ -42,13 +42,26 @@ html,body{
 }
 
 h1{
-    font-weight: 700;
-    font-size: 30px;
-    color: #448899;
     margin: 10px 0;
     line-height:34px;
     height:34px;
     vertical-align: middle;
+}
+
+h1>a{
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 30px;
+    color: #448899;
+    transition:color 0.3s;
+}
+
+h1>a:hover{
+    color:#66AABB;
+}
+
+h1>a:active{
+    color:#337788;
 }
 
 .header-navbar{
@@ -145,13 +158,13 @@ footer p{
 .content-bold{
     font-weight: 700;
     font-size:16px;
-    line-height: 23px;
+    line-height: 30px;
 }
 
 .content-reg{
     font-weight: 400;
     font-size: 16px;
-    line-height: 23px;
+    line-height: 30px;
 }
 
 .body-reg{
