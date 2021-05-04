@@ -7,13 +7,15 @@ let currentIndex = 0;
 let attractionData = {};
 
 
-// get data 
+// ========== get data ===========
 async function getData(){
     const attractionId = window.location.pathname.split('/').pop();
     const res = await fetch(`/api/attraction/${attractionId}`)
     const data = await res.json();  
     attractionData = data['data'];
 };
+
+// ============ render data ===========
 
 // render carousel
 function renderCarousel(){
@@ -58,7 +60,8 @@ function setSelectMinDate(){
     bookingDate.setAttribute('min', today);
 }
 
-// initialize 
+
+// ========== initialize ===========
 (async function init(){
     await getData();
     renderCarousel();
@@ -67,11 +70,12 @@ function setSelectMinDate(){
 })();
 
 
-// carousel event listener
+// =========== carousel change image feature ===========
+
 const carouselImages = carouselSlide.children;
 const indicators = indicatorGroup.children;
 
-nextBtn.addEventListener('click',() => {
+function nextImage(){
     let imgNum = carouselImages.length;
     carouselImages[currentIndex].classList.add('hide');
     indicators[currentIndex].classList.remove('current');
@@ -83,9 +87,9 @@ nextBtn.addEventListener('click',() => {
     }
     carouselImages[currentIndex].classList.remove('hide');
     indicators[currentIndex].classList.add('current');
-})
+}
 
-prevBtn.addEventListener('click',() => {
+function prevImage(){
     let imgNum = carouselImages.length;
     carouselImages[currentIndex].classList.add('hide');
     indicators[currentIndex].classList.remove('current');
@@ -97,9 +101,39 @@ prevBtn.addEventListener('click',() => {
     }
     carouselImages[currentIndex].classList.remove('hide');
     indicators[currentIndex].classList.add('current');
-})
+}
 
-// price varies according to time selection
+// change carousel image by click arrow button
+nextBtn.addEventListener('click', nextImage);
+prevBtn.addEventListener('click',prevImage);
+
+
+// change carousel image by swipe (on mobile or PAD device)
+let touchOriginX = null;
+let readyToSwipeAgain = false;
+function getOrigin(evt){
+    touchOriginX = evt.touches[0].clientX;
+    readyToSwipeAgain = true;
+}
+
+function triggerSwipe(evt){
+    let touchCurrentPosition = evt.touches[0].clientX;
+    let moveDistance = touchCurrentPosition - touchOriginX;
+    if(readyToSwipeAgain && moveDistance > 30){
+        nextImage();
+        readyToSwipeAgain = false;
+    }
+    else if(readyToSwipeAgain && moveDistance < -30){
+        prevImage();
+        readyToSwipeAgain = false;
+    }
+}
+
+carouselSlide.addEventListener('touchstart', getOrigin);
+carouselSlide.addEventListener('touchmove', triggerSwipe);
+
+
+// ========= price varies according to time selection =========
 const morningSelect = document.getElementById('morning');
 const afternoonSelect = document.getElementById('afternoon');
 const price = document.getElementById('price')
@@ -116,7 +150,7 @@ const timeSelect = document.getElementById('timeSelect');
 timeSelect.addEventListener('change',renderPrice)
 
 
-// loader effect while image loading
+//======= loader effect while image loading ==========
 const loader = document.getElementById('loader');
 for(let image of carouselImages){
     image.addEventListener('load', () => {
