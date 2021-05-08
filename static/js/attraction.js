@@ -107,6 +107,22 @@ function prevImage(){
 nextBtn.addEventListener('click', nextImage);
 prevBtn.addEventListener('click',prevImage);
 
+// change carousel image by click left/right side of the image
+function clickSideToChangeImage(evt){
+    const carouselTotalWidth = carouselSlide.getBoundingClientRect().width;
+    const carouselLeft = carouselSlide.getBoundingClientRect().left;
+    const leftBoundary =  carouselLeft + carouselTotalWidth / 3;
+    const rightBoundary = carouselLeft + carouselTotalWidth / 3 * 2;
+    if(evt.clientX < leftBoundary){
+        prevImage();
+    }
+    else if(evt.clientX > rightBoundary){
+        nextImage();
+    }
+}
+
+carouselSlide.addEventListener('click', clickSideToChangeImage);
+
 
 // change carousel image by swipe (on mobile or PAD device)
 let touchOriginX = null;
