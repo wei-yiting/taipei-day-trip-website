@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='css/normalize.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-    <script src="https://kit.fontawesome.com/3a81fc5582.js" crossorigin="anonymous"></script>
     {% block css %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
@@ -27,7 +26,7 @@
 
     <main>
         <!-- log in pop up -->
-        <section class="pop-up hide" id="logIn">
+        <section class="pop-up" id="logIn">
             <div class=pop-up-modal>
                 <img src="{{url_for('static', filename='images/icon_close.png')}}" alt="關閉" class="close" id=logInClose>
                 <div class="top-gradient"></div>
@@ -45,12 +44,12 @@
                     </div>
                     <button class=button-reg>登入帳戶</button>
                 </form>
-                <p class="body-reg">還沒有帳戶？點此註冊</p>
+                <p class="body-reg" id="signUpLink">還沒有帳戶？點此註冊</p>
             </div>
         </section>
 
         <!-- sign up pop up -->
-        <section class="pop-up hide" id="signUp">
+        <section class="pop-up" id="signUp">
             <div class="pop-up-modal">
                 <img src="{{url_for('static', filename='images/icon_close.png')}}" alt="關閉" class="close" id=signUpClose>
                 <div class="top-gradient"></div>
@@ -73,7 +72,7 @@
                     </div>
                     <button class=button-reg>註冊新帳戶</button>
                 </form>
-                <p class="body-reg">已經有帳戶了？點此登入</p>
+                <p class="body-reg" id="logInLink">已經有帳戶了？點此登入</p>
             </div>
         </section>
 
@@ -85,6 +84,8 @@
         <p>COPYRIGHT © 2021 台北一日遊</p>
     </footer>
 
+    <script src="https://kit.fontawesome.com/3a81fc5582.js" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='js/popUp.js')}}"></script>
     {% block script %}{% endblock %}
 </body>
 </html>

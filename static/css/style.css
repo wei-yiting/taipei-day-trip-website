@@ -81,7 +81,6 @@ h1>a:active{
 
 .header-navbar ul li:hover{
     border-bottom: 1px solid #666666;
-
 }
 
 .header-navbar ul li a{
@@ -120,11 +119,13 @@ footer p{
 
 /********** pop up modal **********/
 
-.pop-up.hide{
-    display:none;
+.pop-up{
+    opacity: 0;
+    display: none;
 }
 
-.pop-up{
+.pop-up.show{
+    display:block;
     position:fixed;
     top:0;
     left:0;
@@ -132,6 +133,7 @@ footer p{
     height: 100vh;
     background-color:rgba(0,0,0,0.25);
     z-index:3;
+    opacity: 1;
 }
 
 .pop-up-modal{
@@ -146,6 +148,21 @@ footer p{
     flex-direction: column;
     align-items:center;
     box-shadow: 0 0 60px #AAAAAA;
+}
+
+.show .pop-up-modal{
+    animation:  fade-in 0.3s linear;
+}
+
+@keyframes fade-in{
+    from{
+        opacity: 0;
+        top: 50%;
+    }
+    to{
+        opacity: 1;
+        top: 0;
+    }    
 }
 
 .top-gradient{
@@ -171,6 +188,12 @@ footer p{
     height: 16px;
     top: 27px;
     right: 17px;
+    transition: transform 0.2s;
+}
+
+.close:hover{
+    cursor: pointer;
+    transform: translate(0.5px, -0.5px);
 }
 
 .form-control{
@@ -206,14 +229,28 @@ footer p{
     color: #fff;
     line-height: 27px;
     vertical-align:middle;
+    transition: background-color 0.2s;
+}
+
+.pop-up-modal button:hover{
+    background-color:#337788;
+    cursor: pointer;
+}
+
+.pop-up-modal button:active{
+    background-color:#66AABB;
 }
 
 .pop-up-modal p{
     line-height:22px;
     vertical-align:middle;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 0.2s;
 }
 
-
+.pop-up-modal p:hover{
+    border-bottom: 1px solid #666666;
+}
 
 
 /********** font **********/
