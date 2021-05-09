@@ -1,5 +1,6 @@
 from flask import *
 from api_routes.attraction import attraction_api
+from api_routes.user import user_api
 
 
 ############################
@@ -36,6 +37,8 @@ def thankyou():
 
 # Attractions APIs
 app.register_blueprint(attraction_api)
+# Users APIs
+app.register_blueprint(user_api)
 
 
 
