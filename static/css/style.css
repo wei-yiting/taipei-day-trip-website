@@ -70,7 +70,7 @@ h1>a:active{
 }
 
 .header-navbar ul li{
-    display: inline;
+    display: inline-block;
     padding: 2.5px;
     margin: 7.5px;
     font-size: 16px;
@@ -79,8 +79,13 @@ h1>a:active{
     transition: border-bottom 0.2s;
 }
 
+.header-navbar .hide{
+    display:none;
+}
+
 .header-navbar ul li:hover{
     border-bottom: 1px solid #666666;
+    cursor: pointer;
 }
 
 .header-navbar ul li a{
@@ -122,6 +127,7 @@ footer p{
 .pop-up{
     opacity: 0;
     display: none;
+    transition: all 0.2s;
 }
 
 .pop-up.show{
@@ -141,27 +147,42 @@ footer p{
     width: 340px;
     background-color: #fff;
     border-radius: 6px;
-    margin: 80px auto 0;
+    margin: 0 auto;
+    top: 80px;
     padding: 15px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items:center;
     box-shadow: 0 0 60px #AAAAAA;
+    transition: opacity 0.2s;
 }
 
 .show .pop-up-modal{
-    animation:  fade-in 0.3s linear;
+    animation: fade-in 0.2s linear;
 }
 
 @keyframes fade-in{
     from{
         opacity: 0;
-        top: 50%;
     }
     to{
         opacity: 1;
+    }    
+}
+
+.slide-in .pop-up-modal{
+    animation: slide-in 0.2s linear;
+}
+
+@keyframes slide-in{
+    from{
+        opacity: 0;
         top: 0;
+    }
+    to{
+        opacity: 1;
+        top: 80px;
     }    
 }
 
@@ -193,7 +214,7 @@ footer p{
 
 .close:hover{
     cursor: pointer;
-    transform: translate(0.5px, -0.5px);
+    transform: translate(1px, -1px);
 }
 
 .form-control{
@@ -207,7 +228,16 @@ footer p{
     border-radius:5px;
     color: #000;
     margin-bottom: 10px;
-    outline: none;
+    outline:none;
+}
+
+.form-control input[type="password"]{
+    letter-spacing: 1px;
+    font-family: sans-serif;
+}
+
+.form-control input:focus{
+    border:2px solid #448899;
 }
 
 .form-control input::placeholder{
@@ -250,7 +280,26 @@ footer p{
 
 .pop-up-modal p:hover{
     border-bottom: 1px solid #666666;
+    cursor: pointer;
 }
+
+.pop-up-modal span{
+    font-size: 18px;
+    display:none;
+    margin: 10px auto 20px;
+}
+
+.pop-up-modal .error{
+    display: block;
+    color: #be7749;
+}
+
+.pop-up-modal .success{
+    display: block;
+    color: #55aaaa;
+}
+
+
 
 
 /********** font **********/

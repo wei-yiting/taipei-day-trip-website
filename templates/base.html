@@ -18,6 +18,7 @@
                     <ul>
                         <li><a href="#">預定行程</a></li>
                         <li id="logInSignUp">登入/註冊</li>
+                        <li class="hide" id="logOut" hidden>登出系統</li>
                     </ul>
                 </nav>
             </div>
@@ -31,19 +32,20 @@
                 <img src="{{url_for('static', filename='images/icon_close.png')}}" alt="關閉" class="close" id=logInClose>
                 <div class="top-gradient"></div>
                 <h3 class="header3-bold">登入會員帳號</h3>
-                <form action="#" method="post">
+                <form action="/api/user" id="logInForm">
                     <div class="form-control">
-                        <input type="email" placeholder="輸入電子信箱" name="email" class="input body-reg">
+                        <input type="email" placeholder="輸入電子信箱" name="email" class="input body-reg" id="logInEmail">
                         <i class="fas fa-exclamation-circle"></i>
                         <small>Error Message</small>
                     </div>
                     <div class="form-control">
-                        <input type="password" placeholder="輸入密碼" name="password" class="input body-reg">
+                        <input type="password" placeholder="輸入密碼" name="password" class="input body-reg" id="logInPassword">
                         <i class="fas fa-exclamation-circle"></i>
                         <small>Error Message</small>
                     </div>
                     <button class=button-reg>登入帳戶</button>
                 </form>
+                <span class="body-reg" id="logInMessage"></span>
                 <p class="body-reg" id="signUpLink">還沒有帳戶？點此註冊</p>
             </div>
         </section>
@@ -54,24 +56,25 @@
                 <img src="{{url_for('static', filename='images/icon_close.png')}}" alt="關閉" class="close" id=signUpClose>
                 <div class="top-gradient"></div>
                 <h3 class="header3-bold">註冊會員帳號</h3>
-                <form action="#" method="post">
+                <form action="/api/user" id="signUpForm">
                     <div class="form-control">
-                        <input type="text" placeholder="輸入姓名" name="name" class="input body-reg">
+                        <input type="text" placeholder="輸入姓名" name="name" class="input body-reg" id="signUpName">
                         <i class="fas fa-exclamation-circle"></i>
                         <small>Error Message</small>
                     </div>
                     <div class="form-control">
-                        <input type="email" placeholder="輸入電子信箱" name="email" class="input body-reg">
+                        <input type="email" placeholder="輸入電子信箱" name="email" class="input body-reg" id="signUpEmail">
                         <i class="fas fa-exclamation-circle"></i>
                         <small>Error Message</small>
                     </div>
                     <div class="form-control">
-                        <input type="password" placeholder="輸入密碼" name="password" class="input body-reg">
+                        <input type="password" placeholder="輸入密碼" name="password" class="input body-reg" id="signUpPassword">
                         <i class="fas fa-exclamation-circle"></i>
                         <small>Error Message</small>
                     </div>
                     <button class=button-reg>註冊新帳戶</button>
                 </form>
+                <span class="body-reg" id="signUpMessage"></span>
                 <p class="body-reg" id="logInLink">已經有帳戶了？點此登入</p>
             </div>
         </section>
@@ -85,7 +88,7 @@
     </footer>
 
     <script src="https://kit.fontawesome.com/3a81fc5582.js" crossorigin="anonymous"></script>
-    <script src="{{url_for('static', filename='js/popUp.js')}}"></script>
+    <script src="{{url_for('static', filename='js/logInSignUp.js')}}"></script>
     {% block script %}{% endblock %}
 </body>
 </html>

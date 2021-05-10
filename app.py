@@ -1,4 +1,6 @@
+import os
 from flask import *
+from model import app
 from api_routes.attraction import attraction_api
 from api_routes.user import user_api
 
@@ -7,10 +9,12 @@ from api_routes.user import user_api
 ######### set up  ##########
 ############################
 
-app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config['JSON_SORT_KEYS'] = False
+
+app.secret_key = os.urandom(24)
+
 
 
 ############################
@@ -44,4 +48,4 @@ app.register_blueprint(user_api)
 
 
 if __name__ == '__main__':
-    app.run(port=3000,host="0.0.0.0")
+    app.run(port=3000,host="0.0.0.0", debug=True)
