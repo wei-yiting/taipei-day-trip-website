@@ -218,7 +218,17 @@ footer p{
 }
 
 .form-control{
+    position: relative;
     width: 100%;
+}
+
+.form-control.error input{
+    border: 1px solid
+}
+
+.form-control img,
+.form-control small{
+    display: none;
 }
 
 .form-control input{
@@ -244,10 +254,27 @@ footer p{
     color: #666;
 }
 
-.form-control i,
-.form-control small{
-    display: none;
+.form-control.error input{
+    border: 1.5px solid #be7749;
 }
+
+.form-control.error img{
+    display: block;
+    opacity: 0.9;
+    width: 20px;
+    position: absolute;
+    top: 28px;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.form-control.error small{
+    color: #be7749;
+    display: block;
+    text-align: right;
+    margin: 0 10px 15px;
+}
+
 
 .pop-up-modal button{
     width: 100%;
@@ -297,6 +324,36 @@ footer p{
 .pop-up-modal .success{
     display: block;
     color: #55aaaa;
+}
+
+.wrapper {
+    width: 100px;
+    margin: 20px auto;
+}
+
+/* check svg animation */
+#logInSuccess .pop-up-modal,
+#logOutSuccess .pop-up-modal{
+    background-color:whitesmoke;
+    width: 250px;
+}
+
+
+
+.checkmark {
+    stroke: #448899;
+    stroke-dashoffset: 745.74853515625;
+    stroke-dasharray: 745.74853515625;
+    animation: dash 2s ease-out 0.5s forwards;
+}
+  
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 745.74853515625;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
 }
 
 
@@ -394,7 +451,3 @@ footer p{
         font-size: 14px;
     }
 }
-
-
-
-
