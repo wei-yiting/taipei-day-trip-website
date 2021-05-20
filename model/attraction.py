@@ -3,6 +3,7 @@ import mysql.connector
 from mysql.connector import pooling
 
 
+
 # connect to MySQL databases
 connection_pool = mysql.connector.pooling.MySQLConnectionPool(
         pool_name = 'MySQLPool',

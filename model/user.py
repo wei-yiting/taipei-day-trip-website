@@ -1,25 +1,6 @@
 from model import db
+from model.models import User
 import datetime
-
-##### create model #####
-
-class User(db.Model):
-    
-    __tablename__ = 'users'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    email = db.Column(db.String(255,collation='binary'), nullable=False)
-    password = db.Column(db.String(255,collation='binary'), nullable=False)
-    time = db.Column(db.DateTime)
-    
-    def __init__(self,name,email,password,time):
-        self.name = name
-        self.email = email
-        self.password = password
-        self.time = time
-
-db.create_all()
 
 
 ##### functions #####
