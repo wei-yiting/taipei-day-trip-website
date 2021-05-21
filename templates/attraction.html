@@ -32,9 +32,10 @@
                     <p class="content-reg">以此景點為中心的一日行程，帶您探索城市角落故事</p>
 
                     <form action="/booking" class="booking-form">
-                        <div class="date-selection">
+                        <div class="date-selection form-control">
                             <label for="bookingDate" class="body-bold">選擇日期：</label>
                             <input type="date" name="date" id="bookingDate" min=2021-05-03>
+                            <small>Error Message</small>
                         </div>
                         <div class="time-selection" id="timeSelect">
                             <span class="body-bold">選擇時間：</span>
@@ -44,7 +45,7 @@
                             <label for="afternoon" class="body-reg">下半天</label>
                         </div>
                         <p><span class="body-bold price-title">導覽費用：</span><span class="body-reg" id="price">新台幣 2000 元</span></p>
-                        <button class="button-reg">開始預訂行程</button>
+                        <button class="button-reg" id="bookingBtn">開始預訂行程</button>
                     </form>
                 </article>
             </section>
@@ -72,5 +73,6 @@
 
 
 {% block script %}
-    <script src="{{url_for('static',filename='js/attraction.js')}}"></script>
+    <script src="{{url_for('static',filename='js/renderAttraction.js')}}"></script>
+    <script src="{{url_for('static',filename='js/bookAttraction.js')}}"></script>
 {% endblock %}

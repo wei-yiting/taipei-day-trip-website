@@ -1,6 +1,7 @@
 from flask import Blueprint, request, make_response, jsonify
 from model.attraction import get_attractions_data, get_attractions_count, get_attraction_by_id
 from utils.create_attraction import create_attraction_data
+
 attraction_api = Blueprint('attraction_api', __name__, url_prefix='/api')
 
 
