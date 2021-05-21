@@ -1,5 +1,5 @@
 from model import db
-from model.create_models import Attraction
+from model.models import Attraction
 import json
 
 
