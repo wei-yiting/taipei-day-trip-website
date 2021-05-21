@@ -7,43 +7,6 @@
     <p class="body-reg no-booking-message">目前沒有任何待預訂的行程</p>
   </div>
   <div class="has-booking hide">
-    <!-- <section class="booking-attraction">
-      <div class="booking-attraction-info">
-        <div class="attraction-image-container">
-          <img
-            src="http://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000340.jpg"
-            alt=""
-          />
-        </div>
-        <div class="booking-detail">
-          <h3 class="body-bold">
-            台北一日遊：<span id="attractionName">平安鐘</span>
-          </h3>
-          <p class="body-bold">
-            日期：<span class="body-reg" id="bookingDate">2021-04-23</span>
-          </p>
-          <p class="body-bold">
-            時間：<span class="body-reg" id="bookingTime"
-              >早上 9 點到下午 4 點</span
-            >
-          </p>
-          <p class="body-bold">
-            費用：<span class="body-reg" id="bookingFee">新台幣 2000 元</span>
-          </p>
-          <p class="body-bold">
-            地點：<span class="body-reg" id="location"
-              >臺北市 大安區忠孝東路4段</span
-            >
-          </p>
-        </div>
-        <img
-          src="{{url_for('static', filename='images/icon_delete.png')}}"
-          alt="刪除預定行程"
-          class="delete"
-          id="deleteBooking"
-        />
-      </div>
-    </section> -->
     <section class="contact-payment-info">
       <form action="#" class="booking-form">
         <article class="contact-info">
@@ -68,7 +31,7 @@
             <small>Error Message</small>
           </div>
           <div class="form-control">
-            <label for="bookingPhone">連絡信箱：</label>
+            <label for="bookingPhone">手機號碼：</label>
             <input
               type="tel"
               id="bookingPhone"
@@ -124,8 +87,8 @@
           </div>
         </article>
         <article class="confirm">
-          <p class="body-bold">總價：新台幣 <span id="bookingPrice">2000</span> 元</p>
-          <button class="body-reg" id="confirmBtn">確認訂購並付款</button>
+          <p class="body-bold">總價：新台幣 <span id="bookingPrice"></span> 元</p>
+          <button class="body-reg" id="confirmBtn" disabled>確認訂購並付款</button>
         </article>
       </form>
     </section>

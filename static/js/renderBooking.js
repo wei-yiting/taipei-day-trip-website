@@ -36,6 +36,8 @@ function createElementWithClass(tagName, className = null) {
   return newElement;
 }
 
+let totalPrice = 0;
+
 function renderBookingAttractions(data) {
   if (!data) {
     document.getElementsByTagName("main")[0].classList.add("main-no-booking");
@@ -44,6 +46,7 @@ function renderBookingAttractions(data) {
     for (let attraction of data) {
       renderSingleAttraction(attraction);
     }
+    document.getElementById("bookingPrice").textContent = totalPrice;
   }
 }
 
@@ -77,7 +80,6 @@ function renderSingleAttraction(data) {
   const deleteIcon = createElementWithClass("img", "delete");
   deleteIcon.src = "../static/images/icon_delete.png";
   deleteIcon.alt = "刪除預定行程";
-  deleteIcon.id = "deleteBooking";
 
   bookingDetail.appendChild(attractionHeader);
   bookingDetail.appendChild(bookingDate);
@@ -94,11 +96,13 @@ function renderSingleAttraction(data) {
   bookingAttraction.appendChild(bookingAttractionInfo);
 
   document.getElementsByClassName("has-booking")[0].prepend(bookingAttraction);
+  totalPrice += data.price;
 }
 
 (async () => {
   const bookingData = await getBookingData();
   renderBookingAttractions(bookingData);
+  deleteBooking();
 })();
 
 // ====================================================
@@ -122,3 +126,40 @@ function renderUserInfo(data) {
   const userdata = await getUserInfo();
   renderUserInfo(userdata);
 })();
+
+// ============================================
+// ============ Delete Booking ================
+// ============================================
+function deleteBooking() {
+  const deleteIcons = document.querySelectorAll(".delete");
+  for (let deleteIcon of deleteIcons) {
+    deleteIcon.addEventListener("click", () => {
+      const attractionId = parseInt(deleteIcon.parentElement.parentElement.dataset.attractionId);
+      const requestBody = JSON.stringify({ attractionId: attractionId });
+      console.log(requestBody);
+      fetch("/api/booking", {
+        method: "DELETE",
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+        body: requestBody,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.ok) {
+            console.log("delete!!");
+            window.location.reload();
+          } else if (data.error) {
+            console.log(data.message);
+          }
+        })
+        .catch((err) => {
+          console.log(`fetch error : ${err}`);
+        });
+    });
+  }
+}
+
+// ==========================================
+// ============ Enable order ================
+// ==========================================
