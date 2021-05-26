@@ -126,9 +126,40 @@
   margin-bottom: 15px;
 }
 
+.form-control.success .success-icon {
+  display: block;
+  position: absolute;
+  width: 18px;
+  left: 275px;
+  top: 20px;
+  transform: translateY(-50%);
+}
+
+.form-control.error .error-icon {
+  display: block;
+  position: absolute;
+  width: 18px;
+  left: 275px;
+  top: 20px;
+  transform: translateY(-50%);
+}
+
 .contact-info p {
   margin: 20px 0 5px;
   line-height: 24px;
+}
+
+/* payment */
+.tpfield {
+  height: 40px;
+  width: 220px;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: var(--input-border);
+  border-radius: 5px;
+  color: #000;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 /***** confirm *****/
@@ -160,6 +191,11 @@
 
 .confirm button:active {
   background-color: var(--teal-light);
+}
+
+.confirm button:disabled {
+  background-color: #aaa;
+  cursor: none;
 }
 
 /*************************************/
