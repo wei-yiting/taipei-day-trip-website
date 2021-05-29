@@ -1,4 +1,4 @@
-from flask import Blueprint, json, request, make_response, jsonify, session
+from flask import Blueprint, request, make_response, jsonify, session
 import datetime
 from model.booking import db_get_user_booking, db_store_new_booking, db_check_booking_exist, db_delete_booking
 
@@ -49,9 +49,9 @@ def create_new_booking():
     try:
         if 'id' not in session:
            return  make_response(jsonify({
-            "error": True,
-  			"message": "f: Please log in"
-            }),403)
+                "error": True,
+                "message": "f: Please log in"
+                }),403)
         
         else:
             request_data = request.get_json()
