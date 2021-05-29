@@ -1,6 +1,9 @@
-{% extends "base.html"%} {% block css %}
+{% extends "base.html"%} 
+{% block css %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/booking.css')}}" />
-{% endblock %} {% block title %}台北一日遊 - 預定行程{% endblock %} {% block main %}
+{% endblock %} 
+{% block title %}台北一日遊 - 預定行程{% endblock %} 
+{% block main %}
 <div class="main-container hide-before-log-in" id="main">
   <h2 class="button-bold">您好，<span id="username"></span>，待預訂的行程如下：</h2>
   <div class="no-booking">
@@ -44,19 +47,16 @@
             <label for="card-number">卡片號碼：</label>
             <div class="tpfield" id="card-number"></div>
             <img src="{{url_for('static', filename='images/icon_success.png')}}" class="success-icon" />
-            <img src="{{url_for('static', filename='images/exclamation-mark.png')}}" class="error-icon" />
           </div>
           <div class="form-control">
             <label for="card-expiration-date">過期時間：</label>
             <div class="tpfield" id="card-expiration-date"></div>
             <img src="{{url_for('static', filename='images/icon_success.png')}}" class="success-icon" />
-            <img src="{{url_for('static', filename='images/exclamation-mark.png')}}" class="error-icon" />
           </div>
           <div class="form-control">
             <label for="card-ccv">驗證密碼：</label>
             <div class="tpfield" id="card-ccv"></div>
             <img src="{{url_for('static', filename='images/icon_success.png')}}" class="success-icon" />
-            <img src="{{url_for('static', filename='images/exclamation-mark.png')}}" class="error-icon" />
           </div>
         </article>
         <article class="confirm">
@@ -67,9 +67,10 @@
     </section>
   </div>
 </div>
-{% endblock %} {% block script%}
+{% endblock %} 
+
+{% block script %}
 <script src="https://js.tappaysdk.com/tpdirect/v5.7.0"></script>
 <script src="{{url_for('static', filename='js/renderBooking.js')}}"></script>
 <script src="{{url_for('static', filename='js/bookingTransaction.js')}}"></script>
-
 {% endblock %}

@@ -190,10 +190,15 @@ async function sendTransactionData(requestData) {
     body: JSON.stringify(requestData),
   });
   const data = await res.json();
+  const paymentStatus = data.data.payment.status;
+  const orderNumber = data.data.number;
 
-  //==============
-  //== carry on ==
-  //==============
+  if (paymentStatus !== 0) {
+    alert("很抱歉，本筆交易失敗\n請確認填寫資料無誤後再試一次");
+    return;
+  }
+
+  location.href = `/thankyou?number=${orderNumber}`;
 }
 
 // tappay onsubmit
@@ -216,11 +221,9 @@ function onSubmit(event) {
       return;
     }
     const prime = result.card.prime;
+    console.log(prime);
     const requestBody = await buildRequestBody(prime);
     await sendTransactionData(requestBody);
-
-    // send prime to your server, to pay with Pay by Prime API .
-    // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
   });
 }
 
