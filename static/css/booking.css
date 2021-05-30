@@ -135,13 +135,18 @@
   transform: translateY(-50%);
 }
 
-.form-control.error .error-icon {
+.form-control.error img {
   display: block;
   position: absolute;
   width: 18px;
-  left: 275px;
-  top: 20px;
+  left: 255px;
+  top: 24px;
   transform: translateY(-50%);
+}
+
+.form-control.error small {
+  text-align: left;
+  margin: 5px 0 15px 95px;
 }
 
 .contact-info p {
@@ -196,6 +201,27 @@
 .confirm button:disabled {
   background-color: #aaa;
   cursor: none;
+}
+
+.error-message {
+  margin: 5px 10px;
+  display: none;
+}
+
+.error.error-message {
+  display: block;
+  margin: 5px 10px;
+}
+
+.error .error-message-content {
+  color: var(--error);
+  margin-top: 10px;
+}
+
+.error .error-icon {
+  display: inline-block;
+  width: 15px;
+  vertical-align: bottom;
 }
 
 /*************************************/

@@ -1,17 +1,14 @@
 // setup SDK
 TPDirect.setupSDK(20405, "app_FhMCb4l1iWNNE63mv1IyPd0gBoqveM6PFfcVA13n1LKSEYx4opOYaoh9YDed", "sandbox");
 
-//==== TPDirect.card.setup=======
+//==== TPDirect card setup=======
 let config = {
-  // Display ccv field
   fields: {
     number: {
-      // css selector
       element: "#card-number",
       placeholder: "**** **** **** ****",
     },
     expirationDate: {
-      // DOM object
       element: document.getElementById("card-expiration-date"),
       placeholder: "MM / YY",
     },
@@ -21,20 +18,16 @@ let config = {
     },
   },
   styles: {
-    // Style all elements
     input: {
       color: "gray",
       "font-size": "16px",
     },
-    // style focus state
     ":focus": {
       color: "black",
     },
-    // style valid state
     ".valid": {
       color: "#55aaaa",
     },
-    // style invalid state
     ".invalid": {
       color: "#be7749",
     },
@@ -43,7 +36,7 @@ let config = {
 
 TPDirect.card.setup(config);
 
-//======= on Update ========
+//======= TapPay input on Update ========
 
 // helper function
 function showSuccessIcon(inputField) {
@@ -67,8 +60,6 @@ function removeErrorIcon(inputField) {
 }
 
 TPDirect.card.onUpdate(function (update) {
-  // update.canGetPrime === true
-  // --> you can call TPDirect.card.getPrime()
   if (update.canGetPrime) {
     document.getElementById("confirmBtn").disabled = false;
     // submitButton.removeAttribute('disabled')
@@ -201,9 +192,36 @@ async function sendTransactionData(requestData) {
   location.href = `/thankyou?number=${orderNumber}`;
 }
 
+// helper function
+function emptyFieldReminder(inputField, message) {
+  const formControl = inputField.parentElement;
+  formControl.classList.add("error");
+  const errorMessage = formControl.querySelector("small");
+  errorMessage.textContent = message;
+
+  document.querySelector(".error-message").classList.add("error");
+  document.querySelector(".error-message-content").textContent = "請檢查欄位填寫內容";
+}
+
 // tappay onsubmit
-function onSubmit(event) {
+async function onSubmit(event) {
   event.preventDefault();
+  const bookingName = document.getElementById("bookingName");
+  const bookingEmail = document.getElementById("bookingEmail");
+  const bookingPhone = document.getElementById("bookingPhone");
+
+  if (!(bookingName.value.trim() && bookingEmail.value.trim() && bookingPhone.value.trim())) {
+    if (!bookingName.value.trim()) {
+      emptyFieldReminder(bookingName, "姓名欄位不得為空白");
+    }
+    if (!bookingEmail.value.trim()) {
+      emptyFieldReminder(bookingEmail, "電子信箱不得為空白");
+    }
+    if (!bookingPhone.value.trim()) {
+      emptyFieldReminder(bookingPhone, "電子信箱不得為空白");
+    }
+    return;
+  }
 
   // 取得 TapPay Fields 的 status
   const tappayStatus = TPDirect.card.getTappayFieldsStatus();
@@ -221,7 +239,6 @@ function onSubmit(event) {
       return;
     }
     const prime = result.card.prime;
-    console.log(prime);
     const requestBody = await buildRequestBody(prime);
     await sendTransactionData(requestBody);
   });

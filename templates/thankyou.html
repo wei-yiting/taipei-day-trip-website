@@ -6,7 +6,7 @@
     <section class="title">
       <h2 class="button-reg thank-you">行程預定成功，非常感謝您的訂購！</h2>
       <h2 class="button-bold order-num">訂單編號： <span id="orderNum">1622286732</span></h2>
-      <span class="body-reg remember">（ 請記住此編號，或到會員中心查詢歷史訂單 )</span>
+      <span class="body-reg remember">（ 請記住此編號，或到歷史訂單查詢 )</span>
     </section>
     <section class="order-attraction" id="attraction-info"></section>
     <section class="contact">
@@ -22,6 +22,7 @@
   <div class="no-order hide">
     <p class="button-bold">此訂單編號不存在</p>
   </div>
+  <a href="/" class="back-to-home"><p>繼續瀏覽其他景點</p></a>
 </div>
 {% endblock %} {% block script %}
 <script src="{{url_for('static', filename='js/renderThankyou.js')}}"></script>
