@@ -10,7 +10,7 @@ order_api = Blueprint('order_api', __name__, url_prefix='/api')
 
 @order_api.route('/orders', methods=['POST'])
 def pay_order():
-    try:
+    # try:
         if 'id' not in session:
             return  make_response(jsonify({
                 "error": True,
@@ -112,11 +112,11 @@ def pay_order():
         return make_response(jsonify(res_body),200)
 
             
-    except Exception as e:
-        return make_response(jsonify({
-            "error": True,
-  			"message": str(e)
-            }),500)
+    # except Exception as e:
+    #     return make_response(jsonify({
+    #         "error": True,
+  	# 		"message": str(e)
+    #         }),500)
 
 
 @order_api.route('/orders/<order_num>', methods=['GET'])
