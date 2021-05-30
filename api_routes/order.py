@@ -10,7 +10,7 @@ order_api = Blueprint('order_api', __name__, url_prefix='/api')
 
 @order_api.route('/orders', methods=['POST'])
 def pay_order():
-    # try:
+    try:
         if 'id' not in session:
             return  make_response(jsonify({
                 "error": True,
@@ -72,7 +72,7 @@ def pay_order():
         
         tappay_url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
         
-        req = requests.post(tappay_url, data=json.dumps(tappay_request_body), headers=tappay_request_headers)
+        req = requests.post(tappay_url, data=json.dumps(tappay_request_body, ensure_ascii=False).encode('utf8'), headers=tappay_request_headers)
         res = req.json()
         status = res.get('status')
         error_msg = res.get('msg')
@@ -112,16 +112,16 @@ def pay_order():
         return make_response(jsonify(res_body),200)
 
             
-    # except Exception as e:
-    #     return make_response(jsonify({
-    #         "error": True,
-  	# 		"message": str(e)
-    #         }),500)
+    except Exception as e:
+        return make_response(jsonify({
+            "error": True,
+  			"message": str(e)
+            }),500)
 
 
 @order_api.route('/orders/<order_num>', methods=['GET'])
 def get_order(order_num):
-    # try:
+    try:
         if 'id' not in session:
             return  make_response(jsonify({
                 "error": True,
@@ -131,8 +131,8 @@ def get_order(order_num):
         res = db_get_order(order_num)
         return make_response(jsonify(res),200)
         
-    # except Exception as e:
-    #     return make_response(jsonify({
-    #         "error": True,
-  	# 		"message": str(e)
-    #         }),500)
+    except Exception as e:
+        return make_response(jsonify({
+            "error": True,
+  			"message": str(e)
+            }),500)
