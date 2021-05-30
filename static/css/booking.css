@@ -136,6 +136,10 @@
 }
 
 .form-control.error img {
+  display: none;
+}
+
+.form-control.error .error-icon {
   display: block;
   position: absolute;
   width: 18px;
