@@ -126,9 +126,49 @@
   margin-bottom: 15px;
 }
 
+.form-control.success .success-icon {
+  display: block;
+  position: absolute;
+  width: 18px;
+  left: 275px;
+  top: 20px;
+  transform: translateY(-50%);
+}
+
+.form-control.error img {
+  display: none;
+}
+
+.form-control.error .error-icon {
+  display: block;
+  position: absolute;
+  width: 18px;
+  left: 255px;
+  top: 24px;
+  transform: translateY(-50%);
+}
+
+.form-control.error small {
+  text-align: left;
+  margin: 5px 0 15px 95px;
+}
+
 .contact-info p {
   margin: 20px 0 5px;
   line-height: 24px;
+}
+
+/* payment */
+.tpfield {
+  height: 40px;
+  width: 220px;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: var(--input-border);
+  border-radius: 5px;
+  color: #000;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 /***** confirm *****/
@@ -160,6 +200,32 @@
 
 .confirm button:active {
   background-color: var(--teal-light);
+}
+
+.confirm button:disabled {
+  background-color: #aaa;
+  cursor: none;
+}
+
+.error-message {
+  margin: 5px 10px;
+  display: none;
+}
+
+.error.error-message {
+  display: block;
+  margin: 5px 10px;
+}
+
+.error .error-message-content {
+  color: var(--error);
+  margin-top: 10px;
+}
+
+.error .error-icon {
+  display: inline-block;
+  width: 15px;
+  vertical-align: bottom;
 }
 
 /*************************************/

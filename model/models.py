@@ -1,6 +1,6 @@
 from model import db
 
-##### create attraction model #####
+
 class Attraction(db.Model):
     
     __tablename__ = 'attractions'
@@ -32,7 +32,6 @@ class Attraction(db.Model):
         self.images = images
 
 
-##### create user model #####
 
 class User(db.Model):
     
@@ -54,7 +53,6 @@ class User(db.Model):
         self.time = time
 
 
-##### create booking model #####
 
 class Booking(db.Model):
     __tablename__ = 'bookings'
@@ -74,7 +72,6 @@ class Booking(db.Model):
         self.attraction_id = attraction_id
 
 
-##### create model #####
 class Collection(db.Model):
     __tablename__ = 'collections'
     
@@ -86,6 +83,28 @@ class Collection(db.Model):
         self.user_id = user_id
         self.attraction_id = attraction_id
 
+
+class Order(db.Model):
+    __tablename__ = 'orders'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    time = db.Column(db.String(30), nullable=False)
+    order_num = db.Column(db.String(30), nullable=False)
+    order_json = db.Column(db.Text, nullable=False)
+    contact_json = db.Column(db.String(500), nullable=False)
+    status = db.Column(db.Integer, nullable=False)
+    trade_id = db.Column(db.String(30))
+    user_id = db.Column(db.Integer, nullable=False)
+
+    
+    def __init__(self, time, order_num, order_json, contact_json, status, trade_id, user_id):
+        self.time = time
+        self.order_num = order_num
+        self.order_json = order_json
+        self.contact_json = contact_json
+        self.status = status
+        self.trade_id = trade_id
+        self.user_id = user_id
 
 
 db.create_all()

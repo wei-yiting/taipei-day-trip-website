@@ -4,6 +4,7 @@ from model import app
 from api_routes.attraction import attraction_api
 from api_routes.user import user_api
 from api_routes.booking import booking_api
+from api_routes.order import order_api
 
 ############################
 ######### set up  ##########
@@ -45,6 +46,9 @@ app.register_blueprint(attraction_api)
 app.register_blueprint(user_api)
 # Bookings APIs
 app.register_blueprint(booking_api)
+# Orders APIs
+app.register_blueprint(order_api)
+
 
 
 

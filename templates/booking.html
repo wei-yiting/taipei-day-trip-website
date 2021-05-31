@@ -18,82 +18,51 @@
             <small>Error Message</small>
           </div>
           <div class="form-control">
-            <label for="bookingEmail">連絡信箱：</label>
-            <input
-              type="email"
-              id="bookingEmail"
-              placeholder="您的電子信箱"
-              name="email"
-              class="body-reg"
-              id="bookingEmail"
-            />
+            <label for="bookingEmail">電子信箱：</label>
+            <input type="email" id="bookingEmail" placeholder="您的電子信箱" name="email" class="body-reg" />
             <img src="{{url_for('static', filename='images/exclamation-mark.png')}}" alt="" />
             <small>Error Message</small>
           </div>
           <div class="form-control">
             <label for="bookingPhone">手機號碼：</label>
-            <input
-              type="tel"
-              id="bookingPhone"
-              placeholder="您的手機號碼"
-              name="phone"
-              class="body-reg"
-              id="bookingPhone"
-              pattern="[0-9]{4}-[0-9]{3}-[0-9]{3}"
-            />
+            <input type="tel" id="bookingPhone" placeholder="您的手機號碼" name="phone" class="body-reg" />
             <img src="{{url_for('static', filename='images/exclamation-mark.png')}}" alt="" />
             <small>Error Message</small>
           </div>
-          <p class="body-bold">
-            請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
-          </p>
+          <p class="body-bold">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</p>
         </article>
         <article class="payment-info">
           <h3>信用卡付款資訊</h3>
           <div class="form-control">
-            <label for="creditCardNum">卡片號碼：</label>
-            <input type="password" id="creditCardNum" placeholder="**** **** **** ****" name="credit-card-num"
-            class="body-reg" id="creditCarNum" pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}>
-            <img src="{{url_for('static', filename='images/exclamation-mark.png')}}" alt="" />
-            <small>Error Message</small>
+            <label for="card-number">卡片號碼：</label>
+            <div class="tpfield" id="card-number"></div>
+            <img src="{{url_for('static', filename='images/icon_success.png')}}" class="success-icon" />
           </div>
           <div class="form-control">
-            <label for="creditCardExpiration">過期時間：</label>
-            <input
-              type="text"
-              id="creditCardExpiration"
-              placeholder="MM / YY"
-              name="expiration"
-              class="body-reg"
-              id="bookingEmail"
-              pattern="[0-9]{2}/[0-9]{2}"
-            />
-            <img src="{{url_for('static', filename='images/exclamation-mark.png')}}" alt="" />
-            <small>Error Message</small>
+            <label for="card-expiration-date">過期時間：</label>
+            <div class="tpfield" id="card-expiration-date"></div>
+            <img src="{{url_for('static', filename='images/icon_success.png')}}" class="success-icon" />
           </div>
           <div class="form-control">
-            <label for="creditCardValidation">驗證密碼：</label>
-            <input
-              type="text"
-              id="creditCardValidation"
-              placeholder="CVV"
-              name="cvv"
-              class="body-reg"
-              id="reditCardValidation"
-              pattern="[0-9]{3}"
-            />
-            <img src="{{url_for('static', filename='images/exclamation-mark.png')}}" alt="" />
-            <small>Error Message</small>
+            <label for="card-ccv">驗證密碼：</label>
+            <div class="tpfield" id="card-ccv"></div>
+            <img src="{{url_for('static', filename='images/icon_success.png')}}" class="success-icon" />
           </div>
         </article>
         <article class="confirm">
           <p class="body-bold">總價：新台幣 <span id="bookingPrice"></span> 元</p>
           <button class="body-reg" id="confirmBtn" disabled>確認訂購並付款</button>
+          <div class="error-message">
+            <img class="error-icon" src="{{url_for('static', filename='images/exclamation-mark.png')}}" />
+            <small class="error-message-content">Error Message</small>
+          </div>
         </article>
       </form>
     </section>
   </div>
 </div>
-{% endblock %} {% block script%}
+{% endblock %} {% block script %}
+<script src="https://js.tappaysdk.com/tpdirect/v5.7.0"></script>
 <script src="{{url_for('static', filename='js/renderBooking.js')}}"></script>
+<script src="{{url_for('static', filename='js/orderTransaction.js')}}"></script>
 {% endblock %}
