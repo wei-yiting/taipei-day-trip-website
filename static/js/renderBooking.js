@@ -65,12 +65,21 @@ const views = {
     document.getElementsByClassName("no-booking")[0].classList.add("hide");
     document.getElementsByClassName("has-booking")[0].classList.remove("hide");
 
-    const bookingAttraction = this.createElementWithClass("section", "booking-attraction");
+    const bookingAttraction = this.createElementWithClass(
+      "section",
+      "booking-attraction"
+    );
     bookingAttraction.dataset.attractionId = data.attraction.id;
-    const bookingAttractionInfo = this.createElementWithClass("div", "booking-attraction-info");
-    const attractionImageContainer = this.createElementWithClass("div", "attraction-image-container");
+    const bookingAttractionInfo = this.createElementWithClass(
+      "div",
+      "booking-attraction-info"
+    );
+    const attractionImageContainer = this.createElementWithClass(
+      "div",
+      "attraction-image-container"
+    );
     const attractionImage = this.createElementWithClass("img");
-    attractionImage.src = data.attraction.image;
+    attractionImage.src = data.attraction.image.replace("http", "https");
     const bookingDetail = this.createElementWithClass("div", "booking-detail");
     const attractionHeader = this.createElementWithClass("h3", "body-bold");
     attractionHeader.innerHTML = `台北一日遊：<span>${data.attraction.name}</span>`;
@@ -106,13 +115,17 @@ const views = {
 
     bookingAttraction.appendChild(bookingAttractionInfo);
 
-    document.getElementsByClassName("has-booking")[0].prepend(bookingAttraction);
+    document
+      .getElementsByClassName("has-booking")[0]
+      .prepend(bookingAttraction);
     this.totalPrice += data.price;
   },
   renderBookingAttractions: function (data) {
     if (!data) {
       document.getElementsByTagName("main")[0].classList.add("main-no-booking");
-      document.getElementsByTagName("footer")[0].classList.add("footer-no-booking");
+      document
+        .getElementsByTagName("footer")[0]
+        .classList.add("footer-no-booking");
     } else {
       for (let attraction of data) {
         this.renderSingleAttraction(attraction);
@@ -151,7 +164,9 @@ const controllers = {
     const deleteIcons = document.querySelectorAll(".delete");
     for (let deleteIcon of deleteIcons) {
       deleteIcon.addEventListener("click", async () => {
-        const attractionId = parseInt(deleteIcon.parentElement.parentElement.dataset.attractionId);
+        const attractionId = parseInt(
+          deleteIcon.parentElement.parentElement.dataset.attractionId
+        );
         const requestBody = JSON.stringify({ attractionId: attractionId });
         const removeStatus = await models.removeBookingData(requestBody);
         views.removeBookingView(removeStatus);

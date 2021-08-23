@@ -39,7 +39,7 @@ function createAttractionItem(attraction) {
   loadingSpinner.classList.add("loader");
 
   const attractionImage = document.createElement("img");
-  attractionImage.src = attraction.images[0];
+  attractionImage.src = attraction.images[0].replace("http", "https");
   attractionImage.classList.add("loading");
 
   imageContainer.appendChild(attractionImage);
@@ -113,7 +113,11 @@ loadAttractions();
 // infinite scroll : listen of scroll event
 if (nextPage !== null) {
   window.addEventListener("scroll", () => {
-    if (window.innerHeight + window.scrollY >= document.body.getBoundingClientRect().bottom && readyToLoadAgain) {
+    if (
+      window.innerHeight + window.scrollY >=
+        document.body.getBoundingClientRect().bottom &&
+      readyToLoadAgain
+    ) {
       loadAttractions(keyword);
       readyToLoadAgain = false;
     }

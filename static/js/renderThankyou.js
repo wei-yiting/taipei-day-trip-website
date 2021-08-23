@@ -42,17 +42,26 @@ const views = {
     return newElement;
   },
   renderSingleTrip: function (tripData) {
-    const orderAttractionInfo = this.createElementWithClass("article", "order-attraction-info");
-    const attractionImageContainer = this.createElementWithClass("div", "attraction-image-container");
+    const orderAttractionInfo = this.createElementWithClass(
+      "article",
+      "order-attraction-info"
+    );
+    const attractionImageContainer = this.createElementWithClass(
+      "div",
+      "attraction-image-container"
+    );
     const attractionImage = this.createElementWithClass("img");
-    attractionImage.src = tripData.attraction.image;
+    attractionImage.src = tripData.attraction.image.replace("http", "https");
     const orderDetail = this.createElementWithClass("div", "order-detail");
     const attractionHeader = this.createElementWithClass("h3", "body-bold");
     attractionHeader.textContent = tripData.attraction.name;
     const tripDate = this.createElementWithClass("p", "body-bold");
     tripDate.innerHTML = `日期：<span class="body-reg">${tripData.date}</span>`;
     const tripTime = this.createElementWithClass("p", "body-bold");
-    let time = tripData.time === "morning" ? "早上 9 點到下午 4 點" : "下午 2 點到晚上 9 點";
+    let time =
+      tripData.time === "morning"
+        ? "早上 9 點到下午 4 點"
+        : "下午 2 點到晚上 9 點";
     tripTime.innerHTML = `時間：<span class="body-reg">${time}</span>`;
     const attractionAddress = this.createElementWithClass("p", "body-bold");
     attractionAddress.innerHTML = `地點：<span class="body-reg">${tripData.attraction.address}</span>`;
@@ -67,7 +76,9 @@ const views = {
     orderAttractionInfo.appendChild(attractionImageContainer);
     orderAttractionInfo.appendChild(orderDetail);
 
-    document.querySelector(".order-attraction").appendChild(orderAttractionInfo);
+    document
+      .querySelector(".order-attraction")
+      .appendChild(orderAttractionInfo);
   },
   renderOrder: function (orderData) {
     if (!orderData) {
